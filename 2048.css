@@ -208,13 +208,11 @@
   .score {
     padding-top: 10px;
   }
-  .header {
-    width: 300px;
-  }
   #gridPanel {
     width: 300px;
     height: 300px;
     font-size: 0;
+    margin: 0 auto;
   }
   #gridPanel .cell {
     width: 55px;
@@ -291,6 +289,9 @@
     top: auto;
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
+  }
+  .header {
+    width: 100% !important;
   }
 }
 /*支付 qr*/
