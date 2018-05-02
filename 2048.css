@@ -293,6 +293,9 @@
   .header {
     width: 100% !important;
   }
+  .header .restart {
+    display: none;
+  }
 }
 /*支付 qr*/
 .pay {
