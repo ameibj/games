@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    <link rel="stylesheet" href="2048.css">
+</head>
+<body>
+<div class="header">
+    <p class="score">
+        Score:
+        <span>0</span>
+        分
+    </p>
+    <div class="restart">重玩</div>
+</div>
+
+<div id="gridPanel">
+    <div id="c00" class="cell">
+    </div>
+    <div id="c01" class="cell">
+    </div>
+    <div id="c02" class="cell">
+    </div>
+    <div id="c03" class="cell">
+    </div>
+
+    <div id="c10" class="cell">
+    </div>
+    <div id="c11" class="cell">
+    </div>
+    <div id="c12" class="cell">
+    </div>
+    <div id="c13" class="cell">
+    </div>
+
+    <div id="c20" class="cell">
+    </div>
+    <div id="c21" class="cell">
+    </div>
+    <div id="c22" class="cell">
+    </div>
+    <div id="c23" class="cell">
+    </div>
+
+    <div id="c30" class="cell">
+    </div>
+    <div id="c31" class="cell">
+    </div>
+    <div id="c32" class="cell">
+    </div>
+    <div id="c33" class="cell">
+    </div>
+
+    <!--前景单元格 存数字 负责移动-->
+    <div class="fcell" id="fc00"></div>
+    <div class="fcell" id="fc01"></div>
+    <div class="fcell" id="fc02"></div>
+    <div class="fcell" id="fc03"></div>
+    <div class="fcell" id="fc10"></div>
+    <div class="fcell" id="fc11"></div>
+    <div class="fcell" id="fc12"></div>
+    <div class="fcell" id="fc13"></div>
+    <div class="fcell" id="fc20"></div>
+    <div class="fcell" id="fc21"></div>
+    <div class="fcell" id="fc22"></div>
+    <div class="fcell" id="fc23"></div>
+    <div class="fcell" id="fc30"></div>
+    <div class="fcell" id="fc31"></div>
+    <div class="fcell" id="fc32"></div>
+    <div class="fcell" id="fc33"></div>
+</div>
+<div class="gameover">
+    <div class="mask"></div>
+    <div class="content">
+        <div class="over-text">
+            <p>Game Over!</p>
+            <p>哈哈。加油啊，再接再厉!</p>
+            <p class="margin-bottom-40"> 分数: <span id="finalScore">0</span></p>
+            <a href="" class="btn" id="restart">再玩一次</a>
+        </div>
+    </div>
+    <div class="pay">
+        <div class="close-pay"><span class="close" id="closebtn">&times;</span></div>
+        <p>微信扫码打赏下下我嘛，我想吃糖糖哦！</p>
+        <img src="wxqr.jpg" alt="" width="150">
+
+    </div>
+</div>
+<script src="touch.js"></script>
+<script src="animation.js"></script>
+<script src="2048.js"></script>
+<script>
+    window.onload = function () {
+        game.start();
+        /*移动端*/
+        if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            document.addEventListener("touchend", function (e) {
+                var endx, endy;
+                e.stopPropagation();//阻止冒泡
+                e.preventDefault();//阻止浏览器默认事件
+                endx = e.changedTouches[0].pageX;
+                endy = e.changedTouches[0].pageY;
+                var direction = getDirection(startx, starty, endx, endy);
+                if (game.state === game.PLAYING) {
+                    switch (direction) {
+                        case 0:
+                        // alert("未滑动！");
+                        //break;
+                        case 1:
+                            game.moveUp();
+                            //  alert("向上！")
+                            break;
+                        case 2:
+                            game.moveDown();
+                            //alert("向下！")
+                            break;
+                        case 3:
+                            game.moveLeft();
+                            // alert("向左！")
+                            break;
+                        case 4:
+                            game.moveRight();
+                            //alert("向右！")
+                            break;
+                        default:
+                    }
+                }
+                /*game over*/
+                if (game.gameOver()) {
+                    game.state = game.GAME_OVER;
+                    document.querySelector('.gameover').style.display = 'block';
+                    document.querySelector('#finalScore').innerText = game.score;
+                }
+                return false;
+            }, false);
+
+        } else {
+            document.onkeydown = function () {
+                var ev = window.event || event;
+               //  console.log(ev.keyCode)
+                if (ev.keyCode === 37 || ev.keyCode === 38 || ev.keyCode === 39 || ev.keyCode === 40) {
+                    if (game.state == game.PLAYING) {
+                        switch (ev.keyCode) {
+                            case 37:
+                                game.moveLeft();
+                                break;
+                            case 39:
+                                game.moveRight();
+                                break;
+                            case 40 :
+                                game.moveDown();
+                                break;
+                            case 38:
+                                game.moveUp();
+                                break;
+                        }
+                    } else
+                    /*判断游戏是否结束*/
+                    if (game.gameOver()) {
+                        game.state = game.GAME_OVER;
+                        document.querySelector('.gameover').style.display = 'block';
+                        document.querySelector('#finalScore').innerText = game.score;
+                        /*请求打赏*/
+                        document.querySelector('.pay').style.display = 'block';
+
+                    }
+                }
+                else if (ev.keyCode === 13  && game.gameOver()) {
+                    game.restart();
+                }else if(ev.keyCode === 123 || ev.keyCode === 116){
+                return true;
+                }
+                return false;
+            };
+        }
+        // 重置游戏
+        document.querySelector('#restart').addEventListener('touchend', function () {
+            game.restart();
+        }, false);
+        document.querySelector('.restart').addEventListener('touchend', function () {
+            game.restart();
+        }, false);
+
+        document.querySelector('#closebtn').addEventListener('touchend', function () {
+            document.querySelector('.pay').style.display = 'none';
+        }, false)
+    }
+</script>
+</body>
+</html>

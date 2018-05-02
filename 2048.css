@@ -1,0 +1,346 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.score {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+.score span {
+  color: #e43937;
+}
+#gridPanel {
+  width: 480px;
+  height: 480px;
+  margin: 0 auto;
+  background: #bbada0;
+  border-radius: 10px;
+  position: relative;
+}
+.cell {
+  width: 100px;
+  height: 100px;
+  background: #ccc0b3;
+  float: left;
+  margin: 16px 0 0 16px;
+  border-radius: 6px;
+  position: relative;
+}
+.fcell {
+  position: absolute;
+  background: #fff;
+  line-height: 100px;
+  text-align: center;
+  font-size: 60px;
+  width: 100px;
+  height: 100px;
+  border-radius: 6px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.n2 {
+  background: #eee4da;
+}
+.n4 {
+  background: #ede0c8;
+}
+.n8 {
+  background: #f2b179;
+}
+.n16 {
+  background: #f56563;
+}
+.n32 {
+  background: #f67c5f;
+}
+.n64 {
+  background: #f65e3b;
+}
+.n128 {
+  background: #edcf72;
+}
+.n256 {
+  background: #edcc61;
+}
+.n512 {
+  background: #9c0;
+}
+.n1024 {
+  background: #33b5e5;
+}
+.n2048 {
+  background: #09c;
+}
+.n4096 {
+  background: #a6c;
+}
+.n8192 {
+  background: #93c;
+}
+.n1024,
+.n2048,
+.n4096,
+.n8192 {
+  font-size: 40px;
+}
+.n8,
+.n16,
+.n16,
+.n32,
+.n64,
+.n128,
+.n256,
+.n512,
+.n1024,
+.n2048,
+.n4096,
+.n8192 {
+  color: #fff;
+}
+#fc00,
+#fc01,
+#fc02,
+#fc03 {
+  top: 16px;
+}
+#fc10,
+#fc11,
+#fc12,
+#fc13 {
+  top: 132px;
+}
+#fc20,
+#fc21,
+#fc22,
+#fc23 {
+  top: 248px;
+}
+#fc30,
+#fc31,
+#fc32,
+#fc33 {
+  top: 364px;
+}
+#fc00,
+#fc10,
+#fc20,
+#fc30 {
+  left: 16px;
+}
+#fc01,
+#fc11,
+#fc21,
+#fc31 {
+  left: 132px;
+}
+#fc02,
+#fc12,
+#fc22,
+#fc32 {
+  left: 248px;
+}
+#fc03,
+#fc13,
+#fc23,
+#fc33 {
+  left: 364px;
+}
+.gameover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.gameover .mask {
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+}
+.gameover .content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 200px;
+  border: 1px solid #edcf72;
+  background: #fff;
+  text-align: center;
+}
+.gameover .content .over-text {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.gameover .content .over-text p {
+  font-size: 20px;
+  margin: 5px 0;
+}
+.gameover .content .over-text p.margin-bottom-40 {
+  margin-bottom: 40px !important;
+}
+.gameover .content .over-text p span {
+  color: #e43937;
+}
+.gameover .content .over-text .btn {
+  background: #9f8b77;
+  border-radius: 6px;
+  padding: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+/*移动端适配*/
+@media (max-width: 768px) {
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    overflow: hidden;
+  }
+  .score {
+    padding-top: 10px;
+  }
+  .header {
+    width: 300px;
+  }
+  #gridPanel {
+    width: 300px;
+    height: 300px;
+    font-size: 0;
+  }
+  #gridPanel .cell {
+    width: 55px;
+    height: 55px;
+  }
+  #gridPanel .fcell {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 40px;
+  }
+  #gridPanel .fcell.n1024,
+  #gridPanel .fcell.n2048,
+  #gridPanel .fcell.n4096,
+  #gridPanel .fcell.n8192 {
+    font-size: 20px;
+  }
+  #gridPanel .fcell.n128,
+  #gridPanel .fcell.n256,
+  #gridPanel .fcell.n512 {
+    font-size: 32px;
+  }
+  #gridPanel #fc00,
+  #gridPanel #fc01,
+  #gridPanel #fc02,
+  #gridPanel #fc03 {
+    top: 16px;
+  }
+  #gridPanel #fc10,
+  #gridPanel #fc11,
+  #gridPanel #fc12,
+  #gridPanel #fc13 {
+    top: 87px;
+  }
+  #gridPanel #fc20,
+  #gridPanel #fc21,
+  #gridPanel #fc22,
+  #gridPanel #fc23 {
+    top: 158px;
+  }
+  #gridPanel #fc30,
+  #gridPanel #fc31,
+  #gridPanel #fc32,
+  #gridPanel #fc33 {
+    top: 229px;
+  }
+  #gridPanel #fc00,
+  #gridPanel #fc10,
+  #gridPanel #fc20,
+  #gridPanel #fc30 {
+    left: 16px;
+  }
+  #gridPanel #fc01,
+  #gridPanel #fc11,
+  #gridPanel #fc21,
+  #gridPanel #fc31 {
+    left: 87px;
+  }
+  #gridPanel #fc02,
+  #gridPanel #fc12,
+  #gridPanel #fc22,
+  #gridPanel #fc32 {
+    left: 158px;
+  }
+  #gridPanel #fc03,
+  #gridPanel #fc13,
+  #gridPanel #fc23,
+  #gridPanel #fc33 {
+    left: 229px;
+  }
+  .gameover .content {
+    position: absolute;
+    bottom: 20px;
+    top: auto;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+  }
+}
+/*支付 qr*/
+.pay {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(155, 107, 204, 0.5);
+  color: #FFF;
+}
+.pay p {
+  margin-bottom: 10px;
+  padding: 10px 0;
+  font-weight: bold;
+  font-style: italic;
+}
+.pay .close-pay {
+  overflow: hidden;
+}
+.pay .close-pay .close {
+  float: right;
+  padding: 6px 20px;
+  font-size: 40px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.header {
+  position: relative;
+  overflow: hidden;
+  width: 480px;
+  margin: 20px auto 0;
+}
+.header .restart {
+  position: absolute;
+  right: 40px;
+  top: 0;
+  padding: 5px 10px;
+  font-size: 12px;
+  background: #eee4da;
+}
+/*主机 辣鸡广告去除*/
+center {
+  display: none !important;
+}
+center a[target] {
+  display: none !important;
+}
+a[target] {
+  display: none !important;
+}
+/*# sourceMappingURL=2048.css.map */
