@@ -15,12 +15,12 @@ function Task(obj, topStep, leftStep) {
         var left = parseInt(objCSS.left);
         this.obj.style.top = top + this.topStep + 'px';
         this.obj.style.left = left + this.leftStep + 'px';
-        this.obj.style.zIndex = 3; // 移动的格子的 zindex
+        this.obj.style.zIndex = '3'; // 移动的格子的 zindex
     },
         this.clear = function () {
             this.obj.style.top = '';
             this.obj.style.left = '';
-            this.obj.style.zIndex = 1; // 还原默认的zindex =1
+            this.obj.style.zIndex = '1'; // 还原默认的zindex =1
         }
 }
 
