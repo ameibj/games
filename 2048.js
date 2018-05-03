@@ -1,10 +1,14 @@
 //  面向对象
 var game = {
     data: [
+         [2, 4, 2, 4],
+          [4, 2, 4, 2],
+          [2, 4, 2, 4],
+          [4, 2, 4, 2]
+       /* [0, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0]
+        [0, 0, 0, 0]*/
     ],
     PLAYING: 1, // 游戏进行状态
     GAME_OVER: 0, // 游戏结束状态
@@ -59,7 +63,7 @@ var game = {
         score.innerText = this.score;
     },
     /*封装动画和创建随机数，数据刷新*/
-    anmaiteStart :function(){
+    anmaiteStart: function () {
         // 执行动画
         animation.start();
         setTimeout(function () {
@@ -208,12 +212,12 @@ var game = {
             if (nextRowIndex !== -1) {
                 if (this.data[row][col] === 0) {
                     this.data[row][col] = this.data[nextRowIndex][col];
-                    animation.addTask('' + nextRowIndex + col, '' + row+ col);// 动画
+                    animation.addTask('' + nextRowIndex + col, '' + row + col);// 动画
                     this.data[nextRowIndex][col] = 0;
                     row--;
                 } else if (this.data[row][col] === this.data[nextRowIndex][col]) {
                     this.data[row][col] += this.data[nextRowIndex][col];
-                    animation.addTask('' + nextRowIndex + col, '' + row+ col);// 动画
+                    animation.addTask('' + nextRowIndex + col, '' + row + col);// 动画
                     this.data[nextRowIndex][col] = 0;
                     this.score += this.data[row][col]
                 }

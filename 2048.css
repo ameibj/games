@@ -195,6 +195,77 @@
   color: #fff;
   text-decoration: none;
 }
+.gameover .content .over-text .pay-trigger {
+  display: table;
+  padding: 20px;
+  font-size: 12px;
+  color: #9b6bcc;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  -webkit-animation: vertical 2.0s infinite ease;
+  animation: vertical 2.0s infinite ease;
+}
+@-webkit-keyframes vertical {
+  0% {
+    -webkit-transform: translate(0, -3px);
+    transform: translate(0, -3px);
+  }
+  4% {
+    -webkit-transform: translate(0, 3px);
+    transform: translate(0, 3px);
+  }
+  8% {
+    -webkit-transform: translate(0, -3px);
+    transform: translate(0, -3px);
+  }
+  12% {
+    -webkit-transform: translate(0, 3px);
+    transform: translate(0, 3px);
+  }
+  16% {
+    -webkit-transform: translate(0, -3px);
+    transform: translate(0, -3px);
+  }
+  20% {
+    -webkit-transform: translate(0, 3px);
+    transform: translate(0, 3px);
+  }
+  22% {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@keyframes vertical {
+  0% {
+    -webkit-transform: translate(0, -3px);
+    transform: translate(0, -3px);
+  }
+  4% {
+    -webkit-transform: translate(0, 3px);
+    transform: translate(0, 3px);
+  }
+  8% {
+    -webkit-transform: translate(0, -3px);
+    transform: translate(0, -3px);
+  }
+  12% {
+    -webkit-transform: translate(0, 3px);
+    transform: translate(0, 3px);
+  }
+  16% {
+    -webkit-transform: translate(0, -3px);
+    transform: translate(0, -3px);
+  }
+  20% {
+    -webkit-transform: translate(0, 3px);
+    transform: translate(0, 3px);
+  }
+  22% {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
 /*移动端适配*/
 @media (max-width: 768px) {
   html,
@@ -302,13 +373,15 @@
   top: 10%;
   left: 0;
   width: 100%;
+  padding: 20px;
   text-align: center;
   background: rgba(155, 107, 204, 0.5);
   color: #FFF;
+  box-sizing: border-box;
+  display: none;
 }
 .pay p {
   margin-bottom: 10px;
-  padding: 10px 0;
   font-weight: bold;
   font-style: italic;
 }
@@ -317,7 +390,6 @@
 }
 .pay .close-pay .close {
   float: right;
-  padding: 6px 20px;
   font-size: 40px;
   cursor: pointer;
   font-weight: bold;
@@ -335,15 +407,5 @@
   padding: 5px 10px;
   font-size: 12px;
   background: #eee4da;
-}
-/*主机 辣鸡广告去除*/
-center {
-  display: none !important;
-}
-center a[target] {
-  display: none !important;
-}
-a[target] {
-  display: none !important;
 }
 /*# sourceMappingURL=2048.css.map */

@@ -80,13 +80,16 @@
             <p>哈哈。加油啊，再接再厉!</p>
             <p class="margin-bottom-40"> 分数: <span id="finalScore">0</span></p>
             <a href="" class="btn" id="restart">再玩一次</a>
+            <div class="pay-trigger">
+                <div>o(∩_∩)o...</div>
+                打赏一下嘛!
+            </div>
         </div>
     </div>
     <div class="pay">
         <div class="close-pay"><span class="close" id="closebtn">&times;</span></div>
-        <p>微信扫码打赏下下我嘛，我想吃糖糖哦！</p>
+        <p>微信扫码打赏，您的支持是我最大的动力！</p>
         <img src="wxqr.jpg" alt="" width="150">
-
     </div>
 </div>
 <script src="touch.js"></script>
@@ -140,7 +143,7 @@
         } else {
             document.onkeydown = function () {
                 var ev = window.event || event;
-               //  console.log(ev.keyCode)
+                //  console.log(ev.keyCode)
                 if (ev.keyCode === 37 || ev.keyCode === 38 || ev.keyCode === 39 || ev.keyCode === 40) {
                     if (game.state == game.PLAYING) {
                         switch (ev.keyCode) {
@@ -163,15 +166,12 @@
                         game.state = game.GAME_OVER;
                         document.querySelector('.gameover').style.display = 'block';
                         document.querySelector('#finalScore').innerText = game.score;
-                        /*请求打赏*/
-                        document.querySelector('.pay').style.display = 'block';
-
                     }
                 }
-                else if (ev.keyCode === 13  && game.gameOver()) {
+                else if (ev.keyCode === 13 && game.gameOver()) {
                     game.restart();
-                }else if(ev.keyCode === 123 || ev.keyCode === 116){
-                return true;
+                } else if (ev.keyCode === 123 || ev.keyCode === 116) {
+                    return true;
                 }
                 return false;
             };
@@ -184,8 +184,12 @@
             game.restart();
         }, false);
 
+        /*打赏*/
         document.querySelector('#closebtn').addEventListener('touchend', function () {
             document.querySelector('.pay').style.display = 'none';
+        }, false)
+        document.querySelector('.pay-trigger').addEventListener('touchend', function () {
+            document.querySelector('.pay').style.display = 'block';
         }, false)
     }
 </script>
