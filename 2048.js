@@ -1,19 +1,53 @@
 //  面向对象
 var game = {
     data: [
-        // [2, 4, 2, 4],
-        //  [4, 2, 4, 2],
-        //  [2, 4, 2, 4],
-        //  [4, 2, 4, 2]
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0]
+        [2, 4, 2, 4],
+         [4, 2, 4, 2],
+         [2, 4, 2, 4],
+         [4, 2, 4, 2]
+        // [0, 0, 0, 0],
+        // [0, 0, 0, 0],
+        // [0, 0, 0, 0],
+        // [0, 0, 0, 0]
     ],
     PLAYING: 1, // 游戏进行状态
     GAME_OVER: 0, // 游戏结束状态
     state: 1,
     score: 0, // 保存游戏分数
+    localScore: 0, //  localStorange 存贮
+    getStorage: function (key, data) {
+        if (window.localStorage) { // 支持 localStorage
+            if (key != '') {
+                var storage = window.localStorage;
+                try {
+                    var getScore = storage.getItem(key);
+                    getScore = JSON.parse(getScore);
+                    data = getScore;
+                } catch (e) {
+
+                } finally {
+                    return data;
+                }
+            }
+        }
+        else {
+            alert("浏览暂不支持localStorage");
+        }
+    },
+    setStorage: function (key, data) {
+        if (window.localStorage) { // 支持 localStorage
+            if (key != '') {
+                if (data) {
+                    var storage = window.localStorage;
+                    var maxScore = JSON.stringify(data);
+                    storage.setItem(key, maxScore);
+                }
+            }
+        }
+        else {
+            alert("浏览暂不支持localStorage");
+        }
+    },
     /*判断数组是否满*/
     isFull: function () {
         /*判断当前数组是否不为0*/
@@ -48,6 +82,8 @@ var game = {
         this.randomNum();
         // 将数组完整显示到div
         this.showView();
+        // 获取localStorage score
+       this.localScore= this.getStorage('_score_', this.localScore);
     },
     // 将数组完整显示到div
     showView: function () {
@@ -59,8 +95,18 @@ var game = {
                 odiv.className = n === 0 ? 'fcell' : 'fcell n' + n;
             }
         }
-        var score = document.querySelector('.score').querySelector("span");
-        score.innerText = this.score;
+        var oMaxScore = document.querySelector('.max-scroe');
+        var oScore = document.querySelector('.current-score');
+        oScore.innerText = this.score;
+        oMaxScore.innerText = this.localScore;
+        if (this.localScore > this.score) { // 存贮分数 大于 当前分数
+          return;
+        }
+        else { // 存贮分数 小于 当前分数 存数据
+            this.setStorage('_score_', this.score);
+            oMaxScore.innerText = this.score;
+        }
+
     },
     /*封装动画和创建随机数，数据刷新*/
     anmaiteStart: function () {
@@ -292,6 +338,7 @@ var game = {
             return true;
         }
     },
+
     restart: function () {
         this.data = [
             [0, 0, 0, 0],

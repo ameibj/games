@@ -8,6 +8,9 @@
   font-weight: bold;
   text-align: center;
 }
+.score p {
+  margin-bottom: 5px;
+}
 .score span {
   color: #e43937;
 }
@@ -189,11 +192,14 @@
   color: #e43937;
 }
 .gameover .content .over-text .btn {
+  display: inline-block;
   background: #9f8b77;
   border-radius: 6px;
   padding: 10px;
+  margin-top: 10px;
   color: #fff;
   text-decoration: none;
+  cursor: pointer;
 }
 .gameover .content .over-text .pay-trigger {
   display: table;
@@ -363,9 +369,6 @@
   .header {
     width: 100% !important;
   }
-  .header .restart {
-    display: none;
-  }
 }
 /*支付 qr*/
 .pay {
@@ -398,12 +401,14 @@
   position: relative;
   overflow: hidden;
   width: 480px;
-  margin: 20px auto 0;
+  margin: 0 auto;
+  padding: 20px 0;
 }
 .header .restart {
   position: absolute;
   right: 40px;
-  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
   padding: 5px 10px;
   font-size: 12px;
   background: #eee4da;

@@ -9,11 +9,13 @@
 </head>
 <body>
 <div class="header">
-    <p class="score">
-        Score:
-        <span>0</span>
-        分
-    </p>
+    <div class="score">
+        <p>历史最高分：<span class="max-scroe">0</span></p>
+        <p>
+            Score:
+            <span class="current-score">0</span>
+            分
+        </p></div>
     <div class="restart">重玩</div>
 </div>
 
@@ -78,8 +80,7 @@
         <div class="over-text">
             <p>Game Over!</p>
             <p>哈哈。加油啊，再接再厉!</p>
-            <p class="margin-bottom-40"> 分数: <span id="finalScore">0</span></p>
-            <a href="" class="btn" id="restart">再玩一次</a>
+            <a class="btn" id="restart">再玩一次</a>
             <div class="pay-trigger">
                 <div>o(∩_∩)o...</div>
                 打赏一下嘛!
@@ -135,10 +136,23 @@
                 if (game.gameOver()) {
                     game.state = game.GAME_OVER;
                     document.querySelector('.gameover').style.display = 'block';
-                    document.querySelector('#finalScore').innerText = game.score;
                 }
                 return false;
             }, false);
+            document.querySelector('#restart').addEventListener('touchend', function () {
+                game.restart();
+            }, false);
+            document.querySelector('.restart').addEventListener('touchend', function () {
+                game.restart();
+            }, false);
+
+            /*打赏*/
+            document.querySelector('#closebtn').addEventListener('touchend', function () {
+                document.querySelector('.pay').style.display = 'none';
+            }, false)
+            document.querySelector('.pay-trigger').addEventListener('touchend', function () {
+                document.querySelector('.pay').style.display = 'block';
+            }, false)
 
         } else {
             document.onkeydown = function () {
@@ -160,7 +174,7 @@
                                 game.moveUp();
                                 break;
                         }
-                    } else
+                    }
                     /*判断游戏是否结束*/
                     if (game.gameOver()) {
                         game.state = game.GAME_OVER;
@@ -177,18 +191,18 @@
             };
         }
         // 重置游戏
-        document.querySelector('#restart').addEventListener('touchend', function () {
+        document.querySelector('#restart').addEventListener('click', function () {
             game.restart();
         }, false);
-        document.querySelector('.restart').addEventListener('touchend', function () {
+        document.querySelector('.restart').addEventListener('click', function () {
             game.restart();
         }, false);
 
         /*打赏*/
-        document.querySelector('#closebtn').addEventListener('touchend', function () {
+        document.querySelector('#closebtn').addEventListener('click', function () {
             document.querySelector('.pay').style.display = 'none';
         }, false)
-        document.querySelector('.pay-trigger').addEventListener('touchend', function () {
+        document.querySelector('.pay-trigger').addEventListener('click', function () {
             document.querySelector('.pay').style.display = 'block';
         }, false)
     }
