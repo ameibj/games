@@ -179,7 +179,6 @@
                     if (game.gameOver()) {
                         game.state = game.GAME_OVER;
                         document.querySelector('.gameover').style.display = 'block';
-                        document.querySelector('#finalScore').innerText = game.score;
                     }
                 }
                 else if (ev.keyCode === 13 && game.gameOver()) {
