@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
     <title>2048</title>
     <link rel="shortcut icon" href="amei_favicon.ico">
     <link rel="stylesheet" href="2048.css">
@@ -102,6 +103,9 @@
     window.onload = function () {
         game.start();
         /*移动端*/
+        document.body.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+        });
         document.body.addEventListener('touchmove', function (e) {
             e.preventDefault();
         })
