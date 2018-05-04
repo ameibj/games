@@ -100,6 +100,9 @@
     window.onload = function () {
         game.start();
         /*移动端*/
+        document.body.addEventListener('touchmove', function (e) {
+            e.preventDefault();
+        })
         if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
             document.addEventListener("touchend", function (e) {
                 var endx, endy;

@@ -80,10 +80,10 @@ var game = {
     start: function () {
         this.randomNum();
         this.randomNum();
-        // 将数组完整显示到div
-        this.showView();
         // 获取localStorage score
        this.localScore= this.getStorage('_score_', this.localScore);
+        // 将数组完整显示到div
+        this.showView();
     },
     // 将数组完整显示到div
     showView: function () {
