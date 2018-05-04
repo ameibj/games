@@ -350,6 +350,5 @@ var game = {
         this.score = 0;
         this.start();
         document.querySelector('.gameover').style.display = 'none';
-        document.querySelector('#finalScore').innerText = this.score;
     }
 }
