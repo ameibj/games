@@ -282,7 +282,8 @@
 /*移动端适配*/
 @media (max-width: 768px) {
   html,
-  body {
+  body,
+  .container {
     height: 100%;
     overflow: hidden;
   }

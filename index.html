@@ -8,89 +8,91 @@
     <link rel="stylesheet" href="2048.css">
 </head>
 <body>
-<div class="header">
-    <div class="score">
-        <p>历史最高分：<span class="max-scroe">0</span></p>
-        <p>
-            Score:
-            <span class="current-score">0</span>
-            分
-        </p></div>
-    <div class="restart">重玩</div>
-</div>
-
-<div id="gridPanel">
-    <div id="c00" class="cell">
-    </div>
-    <div id="c01" class="cell">
-    </div>
-    <div id="c02" class="cell">
-    </div>
-    <div id="c03" class="cell">
+<div class="container">
+    <div class="header">
+        <div class="score">
+            <p>历史最高分：<span class="max-scroe">0</span></p>
+            <p>
+                Score:
+                <span class="current-score">0</span>
+                分
+            </p></div>
+        <div class="restart">重玩</div>
     </div>
 
-    <div id="c10" class="cell">
-    </div>
-    <div id="c11" class="cell">
-    </div>
-    <div id="c12" class="cell">
-    </div>
-    <div id="c13" class="cell">
-    </div>
+    <div id="gridPanel">
+        <div id="c00" class="cell">
+        </div>
+        <div id="c01" class="cell">
+        </div>
+        <div id="c02" class="cell">
+        </div>
+        <div id="c03" class="cell">
+        </div>
 
-    <div id="c20" class="cell">
-    </div>
-    <div id="c21" class="cell">
-    </div>
-    <div id="c22" class="cell">
-    </div>
-    <div id="c23" class="cell">
-    </div>
+        <div id="c10" class="cell">
+        </div>
+        <div id="c11" class="cell">
+        </div>
+        <div id="c12" class="cell">
+        </div>
+        <div id="c13" class="cell">
+        </div>
 
-    <div id="c30" class="cell">
-    </div>
-    <div id="c31" class="cell">
-    </div>
-    <div id="c32" class="cell">
-    </div>
-    <div id="c33" class="cell">
-    </div>
+        <div id="c20" class="cell">
+        </div>
+        <div id="c21" class="cell">
+        </div>
+        <div id="c22" class="cell">
+        </div>
+        <div id="c23" class="cell">
+        </div>
 
-    <!--前景单元格 存数字 负责移动-->
-    <div class="fcell" id="fc00"></div>
-    <div class="fcell" id="fc01"></div>
-    <div class="fcell" id="fc02"></div>
-    <div class="fcell" id="fc03"></div>
-    <div class="fcell" id="fc10"></div>
-    <div class="fcell" id="fc11"></div>
-    <div class="fcell" id="fc12"></div>
-    <div class="fcell" id="fc13"></div>
-    <div class="fcell" id="fc20"></div>
-    <div class="fcell" id="fc21"></div>
-    <div class="fcell" id="fc22"></div>
-    <div class="fcell" id="fc23"></div>
-    <div class="fcell" id="fc30"></div>
-    <div class="fcell" id="fc31"></div>
-    <div class="fcell" id="fc32"></div>
-    <div class="fcell" id="fc33"></div>
-</div>
-<div class="gameover">
-    <div class="mask"></div>
-    <div class="content">
-        <div class="over-text">
-            <p>Game Over!</p>
-            <p>哈哈。加油啊，再接再厉!</p>
-            <a class="btn" id="restart">再玩一次</a>
-            <div class="pay-trigger">
-                <div>o(∩_∩)o...</div>
-                打赏一下嘛!
+        <div id="c30" class="cell">
+        </div>
+        <div id="c31" class="cell">
+        </div>
+        <div id="c32" class="cell">
+        </div>
+        <div id="c33" class="cell">
+        </div>
+
+        <!--前景单元格 存数字 负责移动-->
+        <div class="fcell" id="fc00"></div>
+        <div class="fcell" id="fc01"></div>
+        <div class="fcell" id="fc02"></div>
+        <div class="fcell" id="fc03"></div>
+        <div class="fcell" id="fc10"></div>
+        <div class="fcell" id="fc11"></div>
+        <div class="fcell" id="fc12"></div>
+        <div class="fcell" id="fc13"></div>
+        <div class="fcell" id="fc20"></div>
+        <div class="fcell" id="fc21"></div>
+        <div class="fcell" id="fc22"></div>
+        <div class="fcell" id="fc23"></div>
+        <div class="fcell" id="fc30"></div>
+        <div class="fcell" id="fc31"></div>
+        <div class="fcell" id="fc32"></div>
+        <div class="fcell" id="fc33"></div>
+    </div>
+    <div class="gameover">
+        <div class="mask"></div>
+        <div class="content">
+            <div class="over-text">
+                <p>Game Over!</p>
+                <p>哈哈。加油啊，再接再厉!</p>
+                <a class="btn" id="restart">再玩一次</a>
+                <div class="pay-trigger">
+                    <div>o(∩_∩)o...</div>
+                    打赏一下嘛!
+                </div>
             </div>
         </div>
-    </div>
-    <div class="pay">
-        <div class="close-pay"><span class="close" id="closebtn">&times;</span></div>
-        <p>微信扫码打赏，您的支持是我最大的动力！</p>
-        <img src="wxqr.jpg" alt="" width="150">
+        <div class="pay">
+            <div class="close-pay"><span class="close" id="closebtn">&times;</span></div>
+            <p>微信扫码打赏，您的支持是我最大的动力！</p>
+            <img src="wxqr.jpg" alt="" width="150">
+        </div>
     </div>
 </div>
 <script src="touch.js"></script>
@@ -103,10 +105,11 @@
         document.body.addEventListener('touchmove', function (e) {
             e.preventDefault();
         })
+        var container = document.querySelector('.container');
         if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-            document.addEventListener("touchend", function (e) {
+            container.addEventListener("touchend", function (e) {
                 var endx, endy;
-                //   e.stopPropagation();//阻止冒泡
+                e.stopPropagation();//阻止冒泡
                 e.preventDefault();//阻止浏览器默认事件
                 endx = e.changedTouches[0].pageX;
                 endy = e.changedTouches[0].pageY;
@@ -142,19 +145,19 @@
                 }
                 return false;
             }, false);
-            document.querySelector('#restart').addEventListener('touchend', function () {
+            container.querySelector('#restart').addEventListener('touchend', function () {
                 game.restart();
             }, false);
-            document.querySelector('.restart').addEventListener('touchend', function () {
+            container.querySelector('.restart').addEventListener('touchend', function () {
                 game.restart();
             }, false);
 
             /*打赏*/
-            document.querySelector('#closebtn').addEventListener('touchend', function () {
+            container.querySelector('#closebtn').addEventListener('touchend', function () {
                 document.querySelector('.pay').style.display = 'none';
             }, false)
-            document.querySelector('.pay-trigger').addEventListener('touchend', function () {
-                document.querySelector('.pay').style.display = 'block';
+            container.querySelector('.pay-trigger').addEventListener('touchend', function () {
+                container.querySelector('.pay').style.display = 'block';
             }, false)
 
         } else {
