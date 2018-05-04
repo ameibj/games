@@ -111,6 +111,12 @@
         })
         var container = document.querySelector('.container');
         if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            container.addEventListener("touchstart", function (e) {
+                e.stopPropagation();//阻止冒泡
+                e.preventDefault();//阻止浏览器默认事件
+                startx = e.touches[0].pageX;
+                starty = e.touches[0].pageY;
+            }, false);
             container.addEventListener("touchend", function (e) {
                 var endx, endy;
                 e.stopPropagation();//阻止冒泡

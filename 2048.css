@@ -286,6 +286,7 @@
   .container {
     height: 100%;
     overflow: hidden;
+      box-sizing: border-box;
   }
   .score {
     padding-top: 10px;

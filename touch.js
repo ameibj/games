@@ -31,12 +31,12 @@ function getDirection(startx, starty, endx, endy) {
 }
 
 //手指接触屏幕
-document.addEventListener("touchstart", function (e) {
+/*document.addEventListener("touchstart", function (e) {
     e.stopPropagation();//阻止冒泡
     e.preventDefault();//阻止浏览器默认事件
     startx = e.touches[0].pageX;
     starty = e.touches[0].pageY;
-}, false);
+}, false);*/
 //手指离开屏幕
 /*
 document.addEventListener("touchend", function(e) {
