@@ -6,7 +6,7 @@
 ### 游戏运行方式及简介
 
 1. 扫码运行 2048游戏
-<img src='./2048game.jpg' />
+<img src='./2048game.jpg' width='100px' height='100px' align=center />
 
 2. 支持pc端和 移动端
 3. 浏览器输入网址运行 https://ameibj.github.io/games/
@@ -23,6 +23,5 @@
 
 
 -----
-### 打赏
-
-![打赏](./wxqr.jpg =100px)
+### 微信扫码打赏
+<img src='./wxqr.jpg =100px' width='100px' height='100px' align=center />
