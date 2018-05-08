@@ -81,7 +81,7 @@ var game = {
         this.randomNum();
         this.randomNum();
         // 获取localStorage score
-       this.localScore= this.getStorage('_score_', this.localScore);
+        this.localScore = this.getStorage('_score_', this.localScore);
         // 将数组完整显示到div
         this.showView();
     },
@@ -90,7 +90,7 @@ var game = {
         for (var row = 0; row < this.data.length; row++) {
             for (var col = 0; col < this.data[row].length; col++) {
                 var odiv = document.querySelector('#fc' + row + col);
-                var n = this.data[row][col]
+                var n = this.data[row][col];
                 odiv.innerHTML = n === 0 ? '' : n;
                 odiv.className = n === 0 ? 'fcell' : 'fcell n' + n;
             }
@@ -100,24 +100,21 @@ var game = {
         oScore.innerText = this.score;
         oMaxScore.innerText = this.localScore;
         if (this.localScore > this.score) { // 存贮分数 大于 当前分数
-          return;
+            return;
         }
         else { // 存贮分数 小于 当前分数 存数据
             this.setStorage('_score_', this.score);
             oMaxScore.innerText = this.score;
         }
-
     },
     /*封装动画和创建随机数，数据刷新*/
     anmaiteStart: function () {
         // 执行动画
         animation.start();
-        setTimeout(function () {
+        setTimeout(function () {  // console.log(this === game)  // true bind(this)定时器的this用法
             //  生成一个随机数，并添加到数组展示
-            //    console.log(this === game)  // true bind(this)用法
             this.randomNum();
             this.showView();
-
         }.bind(this), animation.interval * animation.times);
     },
     /*向左*/
@@ -127,7 +124,6 @@ var game = {
                 this.moveLeftInRow(row);
             }
             this.anmaiteStart(); // 执行动画和刷新页面数据
-
         }
     },
     /* 任意一行内移动或合并*/
@@ -145,6 +141,7 @@ var game = {
                 } else if (cells[i] === cells[nexti]) {
                     cells[i] += cells[nexti];
                     animation.addTask('' + row + nexti, '' + row + i);// 动画
+                    animation.addAnimateTask('' + row + i)
                     cells[nexti] = 0;
                     this.score += cells[i]; // 得分
                 }
@@ -186,6 +183,7 @@ var game = {
                 } else if (this.data[row][previ] === this.data[row][i]) {
                     this.data[row][i] += this.data[row][previ];
                     animation.addTask('' + row + previ, '' + row + i);// 动画
+                    animation.addAnimateTask('' + row + i)
                     this.data[row][previ] = 0;
                     this.score += this.data[row][i];
                 }
@@ -226,6 +224,7 @@ var game = {
                 } else if (this.data[prevRow][col] === this.data[row][col]) {
                     this.data[row][col] += this.data[prevRow][col];
                     animation.addTask('' + prevRow + col, '' + row + col);// 动画
+                    animation.addAnimateTask('' + row + col);
                     this.data[prevRow][col] = 0;
 
                     this.score += this.data[row][col];
@@ -264,6 +263,7 @@ var game = {
                 } else if (this.data[row][col] === this.data[nextRowIndex][col]) {
                     this.data[row][col] += this.data[nextRowIndex][col];
                     animation.addTask('' + nextRowIndex + col, '' + row + col);// 动画
+                    animation.addAnimateTask('' + row + col);
                     this.data[nextRowIndex][col] = 0;
                     this.score += this.data[row][col]
                 }
