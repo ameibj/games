@@ -113,9 +113,6 @@
         loads(container);
         /*移动端 兼容问题*/
         document.body.addEventListener('touchmove', function (e) {
-          e.preventDefault();
-        });
-        document.body.addEventListener('touchmove', function (e) {
             e.preventDefault();
         })
         if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
@@ -314,12 +311,13 @@
                 if (event.target === oTartetDom[i] && game.bombCount > 0) {
                     game.bombCount--;
                     oTartetDom[i].classList.add('bounceOut');
-
+                    // 获取id值 来拿到坐标
+                    var num = oTartetDom[i].id.replace(/[^0-3]/ig, '').split('');
                     (
                         function (i) {
                             setTimeout(function () {
-                                oTartetDom[i].innerText = '';
-                                oTartetDom[i].className = 'fcell';
+                                game.data[num[0]][num[1]] = 0;
+                                game.showView();
                             }, 500)
                         }
                     )(i)
@@ -329,6 +327,7 @@
         }
         document.querySelector('.bomb-count').innerText = game.bombCount;
     }
+
 
     document.querySelector('#bomb').onclick = function () {
         game.canBomb = true;
