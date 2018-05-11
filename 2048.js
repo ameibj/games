@@ -15,6 +15,9 @@ var game = {
     state: 1,
     score: 0, // 保存游戏分数
     localScore: 0, //  localStorange 存贮
+    bombCount: 1, // 默认可以炸一次
+    canBomb: false, // 炸弹默认关闭
+
     getStorage: function (key, data) {
         if (window.localStorage) { // 支持 localStorage
             if (key != '') {
@@ -111,11 +114,13 @@ var game = {
     anmaiteStart: function () {
         // 执行动画
         animation.start();
+        this.addBomb();
         setTimeout(function () {  // console.log(this === game)  // true bind(this)定时器的this用法
             //  生成一个随机数，并添加到数组展示
             this.randomNum();
             this.showView();
         }.bind(this), animation.interval * animation.times);
+
     },
     /*向左*/
     moveLeft: function () {
@@ -339,7 +344,7 @@ var game = {
         }
     },
 
-    restart: function () {
+    restart: function (callback) {
         this.data = [
             [0, 0, 0, 0],
             [0, 0, 0, 0],
@@ -348,7 +353,20 @@ var game = {
         ];
         this.state = 1;
         this.score = 0;
+        this.bombCount = 1;
         this.start();
-        document.querySelector('.gameover').style.display = 'none';
+        callback();
+    },
+    /*奖励炸弹*/
+    addBomb: function(){
+        for (var row = 0; row < this.data.length; row++) {
+            for (var col = 0; col < this.data[row].length; col++) {
+                if (this.data[row][col] === 2048 && this.bombCount === 1) {
+                    this.bombCount ++;
+                }else if(this.data[row][col] === 4096 && this.bombCount === 2){
+                    this.bombCount ++;
+                }
+            }
+        }
     }
 }

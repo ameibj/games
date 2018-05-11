@@ -1,67 +1,116 @@
-var startx, starty;
+var onTouch = {
+    c: 0,
+    cc: 5,
+    t: null,
+    move: false,
+    x: '',
+    y: '',
+    X: '',
+    Y: '',
+    stop: function () {
+        if (onTouch.t != null) {
+            clearTimeout(onTouch.t);
+        }
+    },
+    init: function (callback) {
+        onTouch.c = 0;
+        onTouch.stop();
+        onTouch.timedCount(callback);
+    },
+    timedCount: function (callback) {
+        onTouch.c++;
+        //  console.log(onTouch.c);
+        if (onTouch.c > onTouch.cc) {
+            onTouch.stop();
+            callback();
+            return null;
+        }
+        onTouch.t = setTimeout(function () {
+            onTouch.timedCount(callback);
+        }, 100);
+    },
+    timedCountEnd: function (callback) {
+        if (onTouch.c < onTouch.cc) {
+            callback()
+        }
+    },
+    touchstart: function (obj, callback) {
+        obj.addEventListener('touchstart', function (event) {
+            onTouch.x = parseInt(event.touches[0].pageX);
+            onTouch.y = parseInt(event.touches[0].pageY);
+            console.log('触摸开始');
+            onTouch.init(function () {
+                callback();
+            });
+        }, false);
+    },
+    touchmove: function (obj, callback) {
+        obj.addEventListener('touchmove', function (event) {
+            onTouch.stop();
+            // onTouch.x = parseInt(event.touches[0].pageX);
+            // onTouch.y = parseInt(event.touches[0].pageY);
+            onTouch.move = true;
+            console.log('触摸滑动');
+            callback();
+        }, false);
+    },
+    touchend: function (obj, callback1, callback2) {
 
-//获得角度
-function getAngle(angx, angy) {
-    return Math.atan2(angy, angx) * 180 / Math.PI;
+        obj.addEventListener('touchend', function (event) {
+            onTouch.stop();
+            onTouch.X = parseInt(event.changedTouches[0].pageX);
+            onTouch.Y = parseInt(event.changedTouches[0].pageY);
+            if (onTouch.move == true) {
+                callback1();
+                onTouch.X = '';
+                onTouch.Y = '';
+                onTouch.x = '';
+                onTouch.y = '';
+                console.log('触摸滑动结束');
+                onTouch.move = false;
+            } else {
+                onTouch.timedCountEnd(function () {
+                    console.log('触摸点击结束');
+                  //  console.log(event.target);
+                    callback2(event); // 传参 target element 元素
+                });
+            }
+        }, false);
+    },
+    touchcancel: function (obj, callback) {
+        obj.addEventListener('touchcancel', function (event) {
+            //  event.preventDefault; // pc上回弹出右键框
+            onTouch.stop();
+            console.log('触摸取消');
+            callback();
+        }, false);
+    },
+    log: function (s) {
+        console.log(s + ":" + onTouch.x + "," + onTouch.y);
+    }
 };
-
-//根据起点终点返回方向 1向上 2向下 3向左 4向右 0未滑动
-function getDirection(startx, starty, endx, endy) {
-    var angx = endx - startx;
-    var angy = endy - starty;
-    var result = 0;
-
-    //如果滑动距离太短
-    if (Math.abs(angx) < 2 && Math.abs(angy) < 2) {
-        return result;
+/* @ example
+*  function loads(){
+        onTouch.touchstart(document, function () {
+            document.querySelector('#div1').innerHTML = "1";
+           alert('长按触发');
+        });
+        onTouch.touchmove(document, function () {
+            document.querySelector('#div1').innerHTML = "2";
+        });
+        onTouch.touchend(document, function () {
+            document.querySelector('#div1').innerHTML = "3";
+            alert('滑动结束触发');
+        }, function () {
+            alert('点击结束触发');
+            document.querySelector('#div1').innerHTML = "4";
+        });
+        onTouch.touchcancel(document, function () {
+            alert('取消触发');
+            document.querySelector('#div1').innerHTML = "5";
+        });
     }
 
-    var angle = getAngle(angx, angy);
-    if (angle >= -135 && angle <= -45) {
-        result = 1;
-    } else if (angle > 45 && angle < 135) {
-        result = 2;
-    } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
-        result = 3;
-    } else if (angle >= -45 && angle <= 45) {
-        result = 4;
-    }
+    window.addEventListener('load',loads, false);
+* */
 
-    return result;
-}
-
-//手指接触屏幕
-/*document.addEventListener("touchstart", function (e) {
-    e.stopPropagation();//阻止冒泡
-    e.preventDefault();//阻止浏览器默认事件
-    startx = e.touches[0].pageX;
-    starty = e.touches[0].pageY;
-}, false);*/
-//手指离开屏幕
-/*
-document.addEventListener("touchend", function(e) {
-    var endx, endy;
-    e.stopPropagation();//阻止冒泡
-    e.preventDefault();//阻止浏览器默认事件 // 阻止后 移动端点击事件弹窗不能触发，但不阻止滑动会滚动回弹
-    endx = e.changedTouches[0].pageX;
-    endy = e.changedTouches[0].pageY;
-    var direction = getDirection(startx, starty, endx, endy);
-    switch (direction) {
-        case 0:
-            alert("未滑动！");
-            break;
-        case 1:
-            alert("向上！")
-            break;
-        case 2:
-            alert("向下！")
-            break;
-        case 3:
-            alert("向左！")
-            break;
-        case 4:
-            alert("向右！")
-            break;
-        default:
-    }
-}, false);*/

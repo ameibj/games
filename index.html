@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <title>2048</title>
+    <meta name="keywords" content="不一样的2048, 2048, 小游戏"/>
+    <meta name="description" content="不一样的2048, 2048, 小游戏"/>
+    <title>不一样的2048</title>
     <link rel="shortcut icon" href="amei_favicon.ico">
     <link rel="stylesheet" href="2048.css">
 </head>
@@ -19,62 +21,67 @@
                 分
             </p></div>
         <div class="restart">重玩</div>
+        <div class="bomb-wrapper" id='bomb'>
+            <span class="bomb"></span>
+            <span class="bomb-count">1</span>个
+        </div>
     </div>
+    <div class="game-wrapper">
+        <div id="gridPanel">
+            <div id="c00" class="cell">
+            </div>
+            <div id="c01" class="cell">
+            </div>
+            <div id="c02" class="cell">
+            </div>
+            <div id="c03" class="cell">
+            </div>
 
-    <div id="gridPanel">
-        <div id="c00" class="cell">
-        </div>
-        <div id="c01" class="cell">
-        </div>
-        <div id="c02" class="cell">
-        </div>
-        <div id="c03" class="cell">
-        </div>
+            <div id="c10" class="cell">
+            </div>
+            <div id="c11" class="cell">
+            </div>
+            <div id="c12" class="cell">
+            </div>
+            <div id="c13" class="cell">
+            </div>
 
-        <div id="c10" class="cell">
-        </div>
-        <div id="c11" class="cell">
-        </div>
-        <div id="c12" class="cell">
-        </div>
-        <div id="c13" class="cell">
-        </div>
+            <div id="c20" class="cell">
+            </div>
+            <div id="c21" class="cell">
+            </div>
+            <div id="c22" class="cell">
+            </div>
+            <div id="c23" class="cell">
+            </div>
 
-        <div id="c20" class="cell">
-        </div>
-        <div id="c21" class="cell">
-        </div>
-        <div id="c22" class="cell">
-        </div>
-        <div id="c23" class="cell">
-        </div>
+            <div id="c30" class="cell">
+            </div>
+            <div id="c31" class="cell">
+            </div>
+            <div id="c32" class="cell">
+            </div>
+            <div id="c33" class="cell">
+            </div>
 
-        <div id="c30" class="cell">
+            <!--前景单元格 存数字 负责移动-->
+            <div class="fcell" id="fc00"></div>
+            <div class="fcell" id="fc01"></div>
+            <div class="fcell" id="fc02"></div>
+            <div class="fcell" id="fc03"></div>
+            <div class="fcell" id="fc10"></div>
+            <div class="fcell" id="fc11"></div>
+            <div class="fcell" id="fc12"></div>
+            <div class="fcell" id="fc13"></div>
+            <div class="fcell" id="fc20"></div>
+            <div class="fcell" id="fc21"></div>
+            <div class="fcell" id="fc22"></div>
+            <div class="fcell" id="fc23"></div>
+            <div class="fcell" id="fc30"></div>
+            <div class="fcell" id="fc31"></div>
+            <div class="fcell" id="fc32"></div>
+            <div class="fcell" id="fc33"></div>
         </div>
-        <div id="c31" class="cell">
-        </div>
-        <div id="c32" class="cell">
-        </div>
-        <div id="c33" class="cell">
-        </div>
-
-        <!--前景单元格 存数字 负责移动-->
-        <div class="fcell" id="fc00"></div>
-        <div class="fcell" id="fc01"></div>
-        <div class="fcell" id="fc02"></div>
-        <div class="fcell" id="fc03"></div>
-        <div class="fcell" id="fc10"></div>
-        <div class="fcell" id="fc11"></div>
-        <div class="fcell" id="fc12"></div>
-        <div class="fcell" id="fc13"></div>
-        <div class="fcell" id="fc20"></div>
-        <div class="fcell" id="fc21"></div>
-        <div class="fcell" id="fc22"></div>
-        <div class="fcell" id="fc23"></div>
-        <div class="fcell" id="fc30"></div>
-        <div class="fcell" id="fc31"></div>
-        <div class="fcell" id="fc32"></div>
-        <div class="fcell" id="fc33"></div>
     </div>
     <div class="gameover">
         <div class="mask"></div>
@@ -101,75 +108,61 @@
 <script src="2048.js"></script>
 <script>
     window.onload = function () {
+        var container = document.querySelector('.game-wrapper');
         game.start();
+        loads(container);
         /*移动端*/
-        document.body.addEventListener('touchstart', function (e) {
-            e.preventDefault();
-        });
+        /* document.body.addEventListener('touchstart', function (e) {
+          e.preventDefault();
+         });*/
         document.body.addEventListener('touchmove', function (e) {
             e.preventDefault();
         })
-        var container = document.querySelector('.container');
         if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-            container.addEventListener("touchstart", function (e) {
-                e.stopPropagation();//阻止冒泡
-                e.preventDefault();//阻止浏览器默认事件
-                startx = e.touches[0].pageX;
-                starty = e.touches[0].pageY;
-            }, false);
-            container.addEventListener("touchend", function (e) {
-                var endx, endy;
-                e.stopPropagation();//阻止冒泡
-                e.preventDefault();//阻止浏览器默认事件
-                endx = e.changedTouches[0].pageX;
-                endy = e.changedTouches[0].pageY;
-                var direction = getDirection(startx, starty, endx, endy);
-                if (game.state === game.PLAYING) {
-                    switch (direction) {
-                        case 0:
-                        // alert("未滑动！");
-                        //break;
-                        case 1:
-                            game.moveUp();
-                            //  alert("向上！")
-                            break;
-                        case 2:
-                            game.moveDown();
-                            //alert("向下！")
-                            break;
-                        case 3:
-                            game.moveLeft();
-                            // alert("向左！")
-                            break;
-                        case 4:
-                            game.moveRight();
-                            //alert("向右！")
-                            break;
-                        default:
-                    }
-                }
-                /*game over*/
-                if (game.gameOver()) {
-                    game.state = game.GAME_OVER;
-                    document.querySelector('.gameover').style.display = 'block';
-                }
-                return false;
-            }, false);
-            container.querySelector('#restart').addEventListener('touchend', function () {
-                game.restart();
-            }, false);
-            container.querySelector('.restart').addEventListener('touchend', function () {
-                game.restart();
-            }, false);
-
-            /*打赏*/
-            container.querySelector('#closebtn').addEventListener('touchend', function () {
-                document.querySelector('.pay').style.display = 'none';
-            }, false)
-            container.querySelector('.pay-trigger').addEventListener('touchend', function () {
-                container.querySelector('.pay').style.display = 'block';
-            }, false)
-
+            /*  container.addEventListener("touchstart", function (e) {
+                  e.stopPropagation();//阻止冒泡
+                  e.preventDefault();//阻止浏览器默认事件
+                  startx = e.touches[0].pageX;
+                  starty = e.touches[0].pageY;
+              }, false);
+              container.addEventListener("touchend", function (e) {
+                  var endx, endy;
+                  e.stopPropagation();//阻止冒泡
+                  e.preventDefault();//阻止浏览器默认事件
+                  endx = e.changedTouches[0].pageX;
+                  endy = e.changedTouches[0].pageY;
+                  var direction = getDirection(startx, starty, endx, endy);
+                  if (game.state === game.PLAYING) {
+                      switch (direction) {
+                          case 0:
+                          // alert("未滑动！");
+                          //break;
+                          case 1:
+                              game.moveUp();
+                              //  alert("向上！")
+                              break;
+                          case 2:
+                              game.moveDown();
+                              //alert("向下！")
+                              break;
+                          case 3:
+                              game.moveLeft();
+                              // alert("向左！")
+                              break;
+                          case 4:
+                              game.moveRight();
+                              //alert("向右！")
+                              break;
+                          default:
+                      }
+                  }
+                  /!*game over*!/
+                  if (game.gameOver()) {
+                      game.state = game.GAME_OVER;
+                      document.querySelector('.gameover').style.display = 'block';
+                  }
+                  return false;
+              }, false);*/
         } else {
             document.onkeydown = function () {
                 var ev = window.event || event;
@@ -207,10 +200,16 @@
         }
         // 重置游戏
         document.querySelector('#restart').addEventListener('click', function () {
-            game.restart();
+            game.restart(function () {
+                document.querySelector('.gameover').style.display = 'none';
+                document.querySelector('.bomb-count').innerText = game.bombCount;
+            });
         }, false);
         document.querySelector('.restart').addEventListener('click', function () {
-            game.restart();
+            game.restart(function () {
+                document.querySelector('.gameover').style.display = 'none';
+                document.querySelector('.bomb-count').innerText = game.bombCount;
+            });
         }, false);
 
         /*打赏*/
@@ -220,7 +219,122 @@
         document.querySelector('.pay-trigger').addEventListener('click', function () {
             document.querySelector('.pay').style.display = 'block';
         }, false)
+        document.querySelector('.bomb-count').innerText = game.bombCount;
     }
+
+    function loads(container) {
+        onTouch.touchstart(container, function () {
+            // alert('长按触发');
+        });
+        onTouch.touchmove(container, function () {
+            //  document.querySelector('.container').innerHTML = "2";
+            // 移动
+        });
+        onTouch.touchend(container, function () {
+            //  alert('滑动结束触发');
+            moveDirection(); // 耦合dom 封装 上下左右移动以及gameover
+        }, function (e) {
+            // alert('点击结束触发');
+            bomb(container, e);
+        });
+        onTouch.touchcancel(container, function () {
+            // alert('取消触发');
+            //  return false;
+        });
+    }
+
+    function moveDirection() {
+        //获得角度
+        function getAngle(angx, angy) {
+            return Math.atan2(angy, angx) * 180 / Math.PI;
+        };
+
+//根据起点终点返回方向 1向上 2向下 3向左 4向右 0未滑动
+        function getDirection(startx, starty, endx, endy) {
+            var angx = endx - startx;
+            var angy = endy - starty;
+            var result = 0;
+
+            //如果滑动距离太短
+            if (Math.abs(angx) < 2 && Math.abs(angy) < 2) {
+                return result;
+            }
+
+            var angle = getAngle(angx, angy);
+            if (angle >= -135 && angle <= -45) {
+                result = 1;
+            } else if (angle > 45 && angle < 135) {
+                result = 2;
+            } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
+                result = 3;
+            } else if (angle >= -45 && angle <= 45) {
+                result = 4;
+            }
+            return result;
+        }
+
+        var direction = getDirection(onTouch.x, onTouch.y, onTouch.X, onTouch.Y);
+        if (game.state === game.PLAYING) {
+            switch (direction) {
+                case 0:
+                // alert("未滑动！");
+                //break;
+                case 1:
+                    game.moveUp();
+                    //  alert("向上！")
+                    break;
+                case 2:
+                    game.moveDown();
+                    //alert("向下！")
+                    break;
+                case 3:
+                    game.moveLeft();
+                    // alert("向左！")
+                    break;
+                case 4:
+                    game.moveRight();
+                    //alert("向右！")
+                    break;
+                default:
+            }
+        }
+        /*game over*/
+        if (game.gameOver()) {
+            game.state = game.GAME_OVER;
+            document.querySelector('.gameover').style.display = 'block';
+        }
+    }
+
+    // 清理炸弹数字
+    function bomb(dom, event) {
+        if (game.canBomb === true) {
+            var oTartetDom = dom.querySelectorAll('.fcell');
+            var timer = null;
+            for (var i = 0; i < oTartetDom.length; i++) {
+                if (event.target === oTartetDom[i] && game.bombCount > 0) {
+                    game.bombCount--;
+                    oTartetDom[i].classList.add('bounceOut');
+
+                    (
+                        function (i) {
+                            setTimeout(function () {
+                                oTartetDom[i].innerText = '';
+                                oTartetDom[i].className = 'fcell';
+                            }, 500)
+                        }
+                    )(i)
+                }
+            }
+            game.bombFlag = false;
+        }
+        document.querySelector('.bomb-count').innerText = game.bombCount;
+    }
+
+    document.querySelector('#bomb').onclick = function () {
+        game.canBomb = true;
+
+    }
+    // window.addEventListener('load', loads, false);
 </script>
 </body>
 </html>
