@@ -111,10 +111,10 @@
         var container = document.querySelector('.game-wrapper');
         game.start();
         loads(container);
-        /*移动端*/
-        /* document.body.addEventListener('touchstart', function (e) {
+        /*移动端 兼容问题*/
+        document.body.addEventListener('touchmove', function (e) {
           e.preventDefault();
-         });*/
+        });
         document.body.addEventListener('touchmove', function (e) {
             e.preventDefault();
         })
