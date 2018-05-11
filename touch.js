@@ -46,6 +46,7 @@ var onTouch = {
     },
     touchmove: function (obj, callback) {
         obj.addEventListener('touchmove', function (event) {
+            event.preventDefault();
             onTouch.stop();
             // onTouch.x = parseInt(event.touches[0].pageX);
             // onTouch.y = parseInt(event.touches[0].pageY);
