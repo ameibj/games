@@ -15,8 +15,9 @@ var game = {
     state: 1,
     score: 0, // 保存游戏分数
     localScore: 0, //  localStorange 存贮
-    bombCount: 1, // 默认可以炸一次
+    bombCount: 1, // 默认炸弹数量 1
     canBomb: false, // 炸弹默认关闭
+    BombTimes: 1,
 
     getStorage: function (key, data) {
         if (window.localStorage) { // 支持 localStorage
@@ -102,6 +103,7 @@ var game = {
         var oScore = document.querySelector('.current-score');
         oScore.innerText = this.score;
         oMaxScore.innerText = this.localScore;
+        document.querySelector('.bomb-count').innerText = game.bombCount;
         if (this.localScore > this.score) { // 存贮分数 大于 当前分数
             return;
         }
@@ -358,13 +360,21 @@ var game = {
         callback();
     },
     /*奖励炸弹*/
-    addBomb: function(){
+    addBomb: function () {
         for (var row = 0; row < this.data.length; row++) {
             for (var col = 0; col < this.data[row].length; col++) {
-                if (this.data[row][col] === 2048 && this.bombCount === 1) {
-                    this.bombCount ++;
-                }else if(this.data[row][col] === 4096 && this.bombCount === 2){
-                    this.bombCount ++;
+                if (this.data[row][col] === 2048 && this.BombTimes === 1) {
+                    this.bombCount++;
+                    this.BombTimes++;
+                } else if (this.data[row][col] === 4096 && this.BombTimes === 2) {
+                    this.bombCount++;
+                    this.BombTimes++;
+                } else {
+                    if (this.data[row][col] === 8192 && this.BombTimes === 3) {
+                        this.bombCount++;
+                        this.BombTimes++;
+                        return;
+                    }
                 }
             }
         }
