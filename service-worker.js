@@ -12,7 +12,6 @@ const
         gitPaht + '/2048.js',
         gitPaht + '/animation.js',
         gitPaht + '/touch.js',
-        gitPaht + '/images/logo/logo152.png',
         gitPaht + '/amei_favicon.ico',
         gitPaht +'/2048.png',
         gitPaht + '/2048game.jpg',
