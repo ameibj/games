@@ -4,7 +4,7 @@
 const
     version = '1.0.0',
     CACHE = version + '::2048',
-    gitPaht = '/games/'
+    gitPaht = '/games'
     installFilesEssential = [
         gitPaht + '/',
         gitPaht + '/manifest.json',
