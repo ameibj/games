@@ -9,6 +9,7 @@
     <title>不一样的2048</title>
     <link rel="shortcut icon" href="amei_favicon.ico">
     <link rel="stylesheet" href="2048.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
 <div class="container">
@@ -103,6 +104,7 @@
         </div>
     </div>
 </div>
+<!-- pc -->
 <script src="touch.js"></script>
 <script src="animation.js"></script>
 <script src="2048.js"></script>
@@ -110,56 +112,13 @@
     window.onload = function () {
         var container = document.querySelector('.game-wrapper');
         game.start();
-        loads(container);
+      //  loads(container);
         /*移动端 兼容问题*/
         document.body.addEventListener('touchmove', function (e) {
             e.preventDefault();
         })
         if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-            /*  container.addEventListener("touchstart", function (e) {
-                  e.stopPropagation();//阻止冒泡
-                  e.preventDefault();//阻止浏览器默认事件
-                  startx = e.touches[0].pageX;
-                  starty = e.touches[0].pageY;
-              }, false);
-              container.addEventListener("touchend", function (e) {
-                  var endx, endy;
-                  e.stopPropagation();//阻止冒泡
-                  e.preventDefault();//阻止浏览器默认事件
-                  endx = e.changedTouches[0].pageX;
-                  endy = e.changedTouches[0].pageY;
-                  var direction = getDirection(startx, starty, endx, endy);
-                  if (game.state === game.PLAYING) {
-                      switch (direction) {
-                          case 0:
-                          // alert("未滑动！");
-                          //break;
-                          case 1:
-                              game.moveUp();
-                              //  alert("向上！")
-                              break;
-                          case 2:
-                              game.moveDown();
-                              //alert("向下！")
-                              break;
-                          case 3:
-                              game.moveLeft();
-                              // alert("向左！")
-                              break;
-                          case 4:
-                              game.moveRight();
-                              //alert("向右！")
-                              break;
-                          default:
-                      }
-                  }
-                  /!*game over*!/
-                  if (game.gameOver()) {
-                      game.state = game.GAME_OVER;
-                      document.querySelector('.gameover').style.display = 'block';
-                  }
-                  return false;
-              }, false);*/
+            loads(container);
         } else {
             document.onkeydown = function () {
                 var ev = window.event || event;
@@ -217,7 +176,13 @@
             document.querySelector('.pay').style.display = 'block';
         }, false)
         document.querySelector('.bomb-count').innerText = game.bombCount;
-    }
+
+
+        if ('serviceWorker' in navigator){
+            // register service worker
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+            }
 
     function loads(container) {
         onTouch.touchstart(container, function () {
@@ -307,7 +272,6 @@
     function bomb(dom, event) {
         if (game.canBomb === true) {
             var oTartetDom = dom.querySelectorAll('.fcell');
-            var timer = null;
             for (var i = 0; i < oTartetDom.length; i++) {
                 if (event.target === oTartetDom[i] && game.bombCount > 0) {
                     game.bombCount--;
@@ -334,7 +298,6 @@
         game.canBomb = true;
 
     }
-    // window.addEventListener('load', loads, false);
 </script>
 </body>
 </html>

@@ -72,6 +72,6 @@ fabric.properties
 
 ### 自定义过滤文件 .map .yml ###
 *.map
-*.yml
 
-# End of https://www.gitignore.io/api/less,webstorm
+
+

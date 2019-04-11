@@ -38,7 +38,7 @@ var onTouch = {
         obj.addEventListener('touchstart', function (event) {
             onTouch.x = parseInt(event.touches[0].pageX);
             onTouch.y = parseInt(event.touches[0].pageY);
-            console.log('触摸开始');
+           // console.log('触摸开始');
             onTouch.init(function () {
                 callback();
             });
@@ -51,7 +51,7 @@ var onTouch = {
             // onTouch.x = parseInt(event.touches[0].pageX);
             // onTouch.y = parseInt(event.touches[0].pageY);
             onTouch.move = true;
-            console.log('触摸滑动');
+           // console.log('触摸滑动');
             callback();
         }, false);
     },
@@ -67,7 +67,7 @@ var onTouch = {
                 onTouch.Y = '';
                 onTouch.x = '';
                 onTouch.y = '';
-                console.log('触摸滑动结束');
+               // console.log('触摸滑动结束');
                 onTouch.move = false;
             } else {
                 onTouch.timedCountEnd(function () {
