@@ -180,7 +180,10 @@
 
         if ('serviceWorker' in navigator){
             // register service worker
-            navigator.serviceWorker.register('/games/service-worker.js');
+            navigator.serviceWorker.register('/games/service-worker.js')
+            .then((registartion)=>{
+                console.log('支持sw:',registartion.scope)
+            })
         }
             }
 
