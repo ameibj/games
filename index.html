@@ -117,6 +117,7 @@
 <script>
     window.onload = function () {
         var container = document.querySelector('.game-wrapper');
+
         game.start();
       //  loads(container);
         /*移动端 兼容问题*/
@@ -188,7 +189,8 @@
             // register service worker
             navigator.serviceWorker.register('/games/service-worker.js')
             .then((registartion)=>{
-                console.log('支持sw:',registartion.scope)
+              // console.log('支持sw:',registartion.scope)
+                console.log(game.data)
             })
         }
             }

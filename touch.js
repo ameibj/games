@@ -42,7 +42,7 @@ var onTouch = {
             onTouch.init(function () {
                 callback();
             });
-        }, false);
+        }, {passive:false});
     },
     touchmove: function (obj, callback) {
         obj.addEventListener('touchmove', function (event) {
@@ -53,7 +53,7 @@ var onTouch = {
             onTouch.move = true;
            // console.log('触摸滑动');
             callback();
-        }, false);
+        }, {passive:false});
     },
     touchend: function (obj, callback1, callback2) {
 
