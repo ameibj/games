@@ -4,18 +4,19 @@
 const
     version = '1.0.0',
     CACHE = version + '::2048',
+    gitPaht = '/games/'
     installFilesEssential = [
-        '/',
-        '/manifest.json',
-        '/2048.css',
-        '/2048.js',
-        '/animation.js',
-        '/touch.js',
-        '/images/logo/logo152.png',
-        '/amei_favicon.ico',
-        '/2048.png',
-        '/2048game.jpg',
-        '/wxqr.jpg'
+        gitPaht + '/',
+        gitPaht + '/manifest.json',
+        gitPaht + '/2048.css',
+        gitPaht + '/2048.js',
+        gitPaht + '/animation.js',
+        gitPaht + '/touch.js',
+        gitPaht + '/images/logo/logo152.png',
+        gitPaht + '/amei_favicon.ico',
+        gitPaht +'/2048.png',
+        gitPaht + '/2048game.jpg',
+        gitPaht +'/wxqr.jpg'
     ];
 
 // install static assets
