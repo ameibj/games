@@ -116,10 +116,19 @@
 <script src="./2048.js"></script>
 <script>
     window.onload = function () {
+        if ('serviceWorker' in navigator){
+            // register service worker
+            navigator.serviceWorker.register('/games/service-worker.js')
+                .then((registartion)=>{
+                    console.log('支持sw:',registartion.scope)
+                    console.log(game.data)
+                })
+        }
+
         var container = document.querySelector('.game-wrapper');
 
         game.start();
-      //  loads(container);
+        //  loads(container);
         /*移动端 兼容问题*/
         document.body.addEventListener('touchmove', function (e) {
             e.preventDefault();
@@ -183,17 +192,7 @@
             document.querySelector('.pay').style.display = 'block';
         }, false)
         document.querySelector('.bomb-count').innerText = game.bombCount;
-
-
-        if ('serviceWorker' in navigator){
-            // register service worker
-            navigator.serviceWorker.register('/games/service-worker.js')
-            .then((registartion)=>{
-              // console.log('支持sw:',registartion.scope)
-                console.log(game.data)
-            })
-        }
-            }
+    }
 
     function loads(container) {
         onTouch.touchstart(container, function () {
