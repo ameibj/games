@@ -74,5 +74,5 @@ fabric.properties
 ### 自定义过滤文件 .map .yml ###
 *.map
 
-
+server.js
 
