@@ -1,7 +1,7 @@
 {
   "name": "2048",
   "short_name": "2048",
-  "start_url": "index.html",
+  "start_url": "/games/index.html",
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#3eaf7c",
@@ -11,5 +11,6 @@
       "sizes": "120x120",
       "type": "image/png"
     }
-  ]
+  ],
+  "prefer_related_applications": true
 }
